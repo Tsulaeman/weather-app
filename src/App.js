@@ -1,25 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 import './App.css';
+import Home from './containers/Home';
+
+import { Layout, Menu } from 'antd';
+
+import 'antd/dist/antd.css';
+import Search from './containers/Search';
+import Details from './containers/Details';
+
+const { Header, Content, Footer } = Layout;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Layout>
+        <Header>
+          <div className="logo" />
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={['1']}
+            style={{ lineHeight: '64px' }}
+          >
+            <Menu.Item key="1">
+            <Link to="/">Home</Link>
+            </Menu.Item>
+          </Menu>
+        </Header>
+        <Content>
+          <Route path='/' exact component={Home} />
+          <Route path='/weather/:woeid' exact component={Details} />
+          <Route path='/search/:keyword' exact component={Search} />
+        </Content>
+        <Footer />
+      </Layout>
+    </BrowserRouter>
+
   );
 }
 
